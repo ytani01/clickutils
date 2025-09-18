@@ -11,7 +11,7 @@ Options:
 """
 import click
 
-from click_utils import click_common_opts
+from clickutils import click_common_opts
 
 
 @click.command()

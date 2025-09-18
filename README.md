@@ -1,11 +1,11 @@
-# click-utils
+# clickutils
 
-`click-utils` は、Python の `click` ライブラリを使用したコマンドラインインターフェース (CLI) アプリケーション開発を支援するユーティリティ集です。
+`clickutils` は、Python の `click` ライブラリを使用したコマンドラインインターフェース (CLI) アプリケーション開発を支援するユーティリティ集です。
 
 
 ## == 目的
 
-`click` を用いて CLI アプリケーションを開発する際、バージョン表示、デバッグフラグ、ヘルプ表示といった共通オプションの設定は反復的な作業となりがちです。`click-utils` は、これらの共通オプションを単一のデコレータで一括して適用可能にすることで、開発の効率化とコードの一貫性向上に貢献します。
+`click` を用いて CLI アプリケーションを開発する際、バージョン表示、デバッグフラグ、ヘルプ表示といった共通オプションの設定は反復的な作業となりがちです。`clickutils` は、これらの共通オプションを単一のデコレータで一括して適用可能にすることで、開発の効率化とコードの一貫性向上に貢献します。
 
 
 ## == 特徴
@@ -38,17 +38,17 @@
 ```bash
 cd work   # `myproject`の親ディレクトリに移動
 
-git clone https://github.com/ytani01/click_utils.git
-# work/click_utils ディレクトリが作成されるので、
+git clone https://github.com/ytani01/clickutils.git
+# work/clickutils ディレクトリが作成されるので、
 # 以下のようなディレクトリ構成になります。
 # 
 # work/
-# ├── click_utils/
+# ├── clickutils/
 # └── myproject/
 
 cd myproject  # `uv`で作られた既存のプロジェクト
 
-uv add ../click_utils  # 相対パスで本パッケージを`add`する。
+uv add ../clickutils  # 相対パスで本パッケージを`add`する。
 ```
 
 
@@ -60,7 +60,7 @@ uv add ../click_utils  # 相対パスで本パッケージを`add`する。
 
 ```python
 import click
-from click_utils import click_common_opts, get_logger
+from clickutils import click_common_opts, get_logger
 
 # CLI のトップレベルコマンドを定義
 @click.group(invoke_without_command=True)
@@ -121,21 +121,21 @@ if __name__ == '__main__':
 
 ```bash
 # ヘルプの表示
-click_utils --help
-click_utils -h
+clickutils --help
+clickutils -h
 
 # バージョンの表示
-click_utils --version
-click_utils -V
-click_utils -v # `use_v=True` に設定した場合に有効
+clickutils --version
+clickutils -V
+clickutils -v # `use_v=True` に設定した場合に有効
 
 # デバッグモードでのサブコマンド実行
-click_utils --debug sub1
-click_utils -d sub1
+clickutils --debug sub1
+clickutils -d sub1
 
 # サブコマンドの実行
-click_utils sub1
-click_utils sub2 sub2sub
+clickutils sub1
+clickutils sub2 sub2sub
 ```
 
 

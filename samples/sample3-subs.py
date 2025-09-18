@@ -7,7 +7,7 @@
 # e.g.   ``... sample3-sub -d sub -d subsub -d``
 #
 import click
-from click_utils import click_common_opts
+from clickutils import click_common_opts
 
 
 @click.group()

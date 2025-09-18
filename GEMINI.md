@@ -54,7 +54,6 @@ Gemini CLI のための開発ルール。
   - `uv run ruff check ...`
   - `uv run mypy ...`
   - `uv run pyright ...`
-  - `uv run flake8 ...`
   - ソースコードを修正した場合は、再度、リンティングとテストを実行する。
 
 - **テストプログラム**
@@ -98,7 +97,7 @@ Gemini CLI のための開発ルール。
 - ソースコード内のコメントは、通常は日本語で行うこと。
 - 各行を78文字以内に収めること。
 - デバッグログには `my_logger.py` の `get_logger()` を使用すること。
-- `my_logger.py`, `click_utils.py` は変更しないこと。
+- `my_logger.py`, `clickutils.py` は変更しないこと。
 
 
 ## == タスクの計画と実行: `ToDo.md` と `Tasks.md`

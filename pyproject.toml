@@ -1,5 +1,5 @@
 [project]
-name = "click-utils"
+name = "clickutils"
 dynamic = ["version"]
 description = "utilities for `click`"
 readme = "README.md"
@@ -9,7 +9,6 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "click>=8.2.1",
-    "flake8>=7.3.0",
 ]
 
 [build-system]
@@ -21,6 +20,7 @@ source = "vcs"
 
 [dependency-groups]
 dev = [
+    "flake8>=7.3.0",
     "mypy>=1.18.1",
     "pyright>=1.1.405",
     "ruff>=0.13.0",
@@ -28,4 +28,4 @@ dev = [
 ]
 
 [project.scripts]
-click_utils = "click_utils.__main__:cli"
+clickutils = "clickutils.__main__:cli"

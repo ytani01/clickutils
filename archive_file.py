@@ -5,7 +5,7 @@ import click
 import os
 import datetime
 
-from click_utils import click_common_opts, get_logger
+from clickutils import click_common_opts, get_logger
 
 @click.command()
 @click_common_opts()
