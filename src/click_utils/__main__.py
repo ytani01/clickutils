@@ -2,7 +2,7 @@
 # (c) 2025 Yoichi Tanibayashi
 #
 import click
-#import pprint
+# import pprint
 
 from . import __version__, click_common_opts, get_logger
 
@@ -33,6 +33,7 @@ def sub1(ctx, debug):
     __log.debug("command name = %a", ctx.command.name)
 
     print(f"  {ctx.command.name}")
+
 
 @cli.group(invoke_without_command=True)
 @click_common_opts()

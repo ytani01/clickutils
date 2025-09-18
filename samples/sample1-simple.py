@@ -15,9 +15,9 @@ from click_utils import click_common_opts
 
 
 @click.command()
-@click_common_opts(ver_str="v1.2.3")
+@click_common_opts()
 def main(ctx, debug):
-    print(f"Hello, world!")
+    print("Hello, world!")
 
     if debug:
         print(f"[DEBUG] command.name = '{ctx.command.name}'")

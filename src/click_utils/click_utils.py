@@ -6,6 +6,7 @@ import click
 from . import __package__
 from .version import __version__
 
+
 def click_common_opts(
     ver_str: str = "",
     use_h: bool = True, use_d: bool = True, use_v: bool = False

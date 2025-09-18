@@ -1,3 +1,27 @@
+#
+screenshot_*
+
+# Gemini CLI
+.gemini/
+
+# serena
+.serena/
+
+# misc
+*.swp
+*.bak
+*.log
+
+# emacs
+*~
+.*~
+\#*
+.#*
+.markdown*
+flycheck_*
+.elpy/
+
+
 # Python-generated files
 __pycache__/
 *.py[oc]
