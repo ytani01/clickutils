@@ -1,11 +1,13 @@
 import os
 import pytest
-from click.testing import CliRunner
-from archive_file import main as archive_file_main
+import subprocess
 
 
-# テスト用のアーカイブディレクトリ
 TEST_ARCHIVE_DIR = "test_archives"
+TEST_FILE_NAME = "test_file"
+TEST_FILE_EXT = "md"
+TEST_FILE = f"{TEST_FILE_NAME}.{TEST_FILE_EXT}"
+TEST_FILE_NOTFOUND = "test_file_notfile.md"
 
 
 @pytest.fixture(autouse=True)
@@ -16,7 +18,6 @@ def setup_and_teardown():
             os.remove(os.path.join(TEST_ARCHIVE_DIR, f))
         os.rmdir(TEST_ARCHIVE_DIR)
 
-    # テスト実行
     yield
 
     # テスト後にアーカイブディレクトリをクリーンアップ
@@ -27,35 +28,48 @@ def setup_and_teardown():
 
 
 def test_archive_file_success():
-    runner = CliRunner()
-    test_file_name = "test_file.txt"
-
     # テストファイルを作成
-    with open(test_file_name, "w") as f:
+    with open(TEST_FILE, "w") as f:
         f.write("This is a test file.")
 
-    result = runner.invoke(
-        archive_file_main,
-        ["--debug", "--archive-path", TEST_ARCHIVE_DIR, test_file_name]
-    )
-    assert result.exit_code == 0
-    assert f"Archived '{test_file_name}' to " \
-           f"'{TEST_ARCHIVE_DIR}/test_file" in result.output
-    assert not os.path.exists(test_file_name)  # 元のファイルは削除されているはず
+    cmdline = f"uv run archive_file.py --debug --archive-path {TEST_ARCHIVE_DIR} {TEST_FILE}"
+    print()
+    print()
+    print(f"* cmdline = {cmdline}")
+
+    result = subprocess.run(cmdline.split(), capture_output=True, text=True)
+
+    print()
+    print(f"* returncode = {result.returncode}")
+
+    assert result.returncode == 0
+
+    print()
+    print(f"* stdout = {result.stdout}")
+
+    assert f"Archived '{TEST_FILE}' to " \
+           f"'{TEST_ARCHIVE_DIR}/test_file" in result.stdout
+    assert not os.path.exists(TEST_FILE)  # 元のファイルは削除されているはず
 
     # アーカイブディレクトリにファイルが存在することを確認
     archive_files = os.listdir(TEST_ARCHIVE_DIR)
     assert len(archive_files) == 1
-    assert archive_files[0].startswith("test_file")
-    assert archive_files[0].endswith(".txt")
+    assert archive_files[0].startswith(TEST_FILE_NAME)
+    assert archive_files[0].endswith("." + TEST_FILE_EXT)
 
 
 def test_archive_file_not_found():
-    runner = CliRunner()
-    non_existent_file = "non_existent_file.txt"
-    result = runner.invoke(
-        archive_file_main,
-        ["--debug", "--archive-path", TEST_ARCHIVE_DIR, non_existent_file]
-    )
-    assert result.exit_code == 1  # ファイルが見つからない場合はエラー終了
-    assert f"Error: File '{non_existent_file}' not found." in result.output
+    cmdline = f"uv run archive_file.py --debug --archive-path {TEST_ARCHIVE_DIR} {TEST_FILE_NOTFOUND}"
+    print()
+    print()
+    print(f"* cmdline = {cmdline}")
+
+    result = subprocess.run(cmdline.split(), capture_output=True, text=True)
+
+    print()
+    print(f"* returncode = {result.returncode}")
+    assert result.returncode == 1
+
+    print()
+    print(f"* stderr = {result.stderr}")
+    assert f"Error: File not found: {TEST_FILE_NOTFOUND}" in result.stderr
