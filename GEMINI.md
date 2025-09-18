@@ -54,6 +54,7 @@ Gemini CLI のための開発ルール。
   - `uv run ruff check ...`
   - `uv run mypy ...`
   - `uv run pyright ...`
+  - `uv run flake8 ...`
   - ソースコードを修正した場合は、再度、リンティングとテストを実行する。
 
 - **テストプログラム**
