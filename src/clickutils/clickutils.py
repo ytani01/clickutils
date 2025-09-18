@@ -1,7 +1,7 @@
 #
 # (c) 2025 Yoichi Tanibayashi
 #
-import click
+import asyncclick as click
 
 from . import __package__
 from .version import __version__
