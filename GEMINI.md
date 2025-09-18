@@ -7,8 +7,8 @@ Gemini CLI のための開発ルール。
 - serena
 
 ``` text
-@serena onboarding
 @serena activate current directory
+@serena onboarding
 @serena switch_mode ["planning", "one-shot"]
 @serena switch_mode ["editing", "interactive"]
 @serena think_about_whether_you_are_done
