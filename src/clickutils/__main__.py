@@ -1,10 +1,7 @@
 #
 # (c) 2025 Yoichi Tanibayashi
 #
-import click
-# import pprint
-
-from . import __version__, click_common_opts, get_logger
+from . import __version__, click, click_common_opts, get_logger
 
 
 @click.group(invoke_without_command=True)
@@ -26,7 +23,7 @@ def cli(ctx, debug):
 
 
 @cli.command()
-@click_common_opts()
+@click_common_opts(__version__)
 def sub1(ctx, debug):
     """Subcommand #1."""
     __log = get_logger(__name__, debug)
@@ -36,7 +33,7 @@ def sub1(ctx, debug):
 
 
 @cli.group(invoke_without_command=True)
-@click_common_opts()
+@click_common_opts(__version__)
 def sub2(ctx, debug):
     """Subcommand #2.(command group)"""
 
@@ -54,7 +51,7 @@ def sub2(ctx, debug):
 
 
 @sub2.command()
-@click_common_opts()
+@click_common_opts(__version__)
 def sub2sub(ctx, debug):
     """Subcommand of `sub2`."""
     __log = get_logger(__name__, debug)

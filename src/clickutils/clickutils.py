@@ -1,11 +1,8 @@
 #
 # (c) 2025 Yoichi Tanibayashi
 #
-import asyncclick as click
-
-from . import __package__
+from . import __package__, click
 from .version import __version__
-
 
 def click_common_opts(
     ver_str: str = "",

@@ -6,26 +6,25 @@
 #
 # e.g.   ``... sample3-sub -d sub -d subsub -d``
 #
-import click
-from clickutils import click_common_opts
+from clickutils import click, click_common_opts
 
 
 @click.group()
-@click_common_opts(ver_str="1.1.1")
+@click_common_opts("1.1.1")
 def main(ctx, debug):
     if debug:
         print(f"[DEBUG] command.name = '{ctx.command.name}'")
 
 
 @main.group()
-@click_common_opts(ver_str="2.2.2")
+@click_common_opts("2.2.2")
 def sub(ctx, debug):
     if debug:
         print(f"[DEBUG] command.name =   '{ctx.command.name}'")
 
 
 @sub.command()
-@click_common_opts()
+@click_common_opts("3.3.3")
 def subsub(ctx, debug):
     if debug:
         print(f"[DEBUG] command.name =     '{ctx.command.name}'")

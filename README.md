@@ -58,18 +58,24 @@ uv add ../clickutils  # 相対パスで本パッケージを`add`する。
 
 `click_common_opts` は、`click` コマンドやグループに共通オプションを追加するためのデコレータです。基本的な使用方法は以下の通りです。
 
+※ **注意**
+※ `click` は、個別に`import click`しないでください
+※
+※ 以下のように、本パッケージからインポートするようにしてください
+※
+※   from clickutils import click, click_common_opts
+
 ```python
-import click
-from clickutils import click_common_opts, get_logger
+from clickutils import click, click_common_opts
 
 # CLI のトップレベルコマンドを定義
 @click.group(invoke_without_command=True)
 @click_common_opts(ver_str="1.0.0", use_v=True, use_d=True, use_h=True)
 def cli(ctx, debug):
     """CLI top."""
-    # get_logger は、デバッグフラグに応じてログ出力を制御するユーティリティです。
-    log = get_logger(__name__, debug)
-    log.debug("command name = %a", ctx.command.name)
+    if debug:
+        print(f"[DEBUG] command name = '{ctx.command.name}'")
+        print(f"[DEBUG] sub command name = '{ctx.invoked_subcommand}'")
 
     print(f"Hello from {ctx.command.name}")
 
@@ -83,8 +89,9 @@ def cli(ctx, debug):
 @click_common_opts()
 def sub1(ctx, debug):
     """Subcommand #1."""
-    log = get_logger(__name__, debug)
-    log.debug("command name = %a", ctx.command.name)
+    if debug:
+        print(f"command name = '{ctx.command.name}'")
+
     print(f"  Hello from {ctx.command.name}")
 
 if __name__ == '__main__':
