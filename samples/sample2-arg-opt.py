@@ -3,15 +3,19 @@
 #
 # `click.command()` と `@click_common_opts()` ではさむ
 
-from clickutils import click, click_common_opts
+from clickutils import import_click, click_common_opts
+
+
+click = import_click(async_flag=True)
 
 
 @click.command()
 @click.argument("arg1", nargs=-1)
 @click.option("--opt1", "-o", type=str)
-@click_common_opts(ver_str="0.0.2")
-def main(ctx, arg1, opt1, debug):
+@click_common_opts(click, ver_str="0.0.2")
+async def main(ctx, arg1, opt1, debug):
     if debug:
+        print(f"[DEBUG] click = '{click.__name__}'")
         print(f"[DEBUG] command.name = '{ctx.command.name}'")
 
     print(f"arg1 = '{arg1}'")

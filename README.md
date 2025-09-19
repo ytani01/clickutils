@@ -63,14 +63,19 @@ uv add ../clickutils  # 相対パスで本パッケージを`add`する。
 ※
 ※ 以下のように、本パッケージからインポートするようにしてください
 ※
-※   from clickutils import click, click_common_opts
+※   from clickutils, import click, click_common_opts
+※   click = import_click()
 
 ```python
-from clickutils import click, click_common_opts
+from clickutils import click_common_opts, import_click
+
+click = import_click()
+
+VERSION = "1.0.0"
 
 # CLI のトップレベルコマンドを定義
 @click.group(invoke_without_command=True)
-@click_common_opts(ver_str="1.0.0", use_v=True, use_d=True, use_h=True)
+@click_common_opts(click, VERSION)
 def cli(ctx, debug):
     """CLI top."""
     if debug:
@@ -86,7 +91,7 @@ def cli(ctx, debug):
 
 # サブコマンドを定義
 @cli.command()
-@click_common_opts()
+@click_common_opts(click, VERSION)
 def sub1(ctx, debug):
     """Subcommand #1."""
     if debug:
@@ -99,6 +104,11 @@ if __name__ == '__main__':
 ```
 
 #### ==== パラメータ
+
+- `click` 引数名固定
+
+  `import_click()` で取得した `click`
+  `import_click(async_flag=Tree)`で取得すると、内部的に`asyncclick`になる。
 
 - `ver_str` (str, 省略可)
 

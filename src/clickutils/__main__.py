@@ -1,7 +1,10 @@
 #
 # (c) 2025 Yoichi Tanibayashi
 #
-from . import __version__, click, click_common_opts, get_logger
+from . import __version__, import_click, click_common_opts, get_logger
+
+
+click = import_click()
 
 
 @click.group(invoke_without_command=True)
@@ -10,6 +13,7 @@ def cli(ctx, debug):
     """CLI top."""
 
     __log = get_logger(__name__, debug)
+    __log.debug("click = %a", click.__name__)
     __log.debug("command name = %a", ctx.command.name)
     # __log.debug("ctx = %s", pprint.pformat(vars(ctx)))
     # __log.debug("ctx = %s", pprint.pformat(vars(ctx)))

@@ -9,16 +9,19 @@ Options:
   -d, --debug    debug flag
   -h, --help     Show this message and exit.
 """
-from clickutils import click, click_common_opts
+from clickutils import click_common_opts, import_click
+
+
+click = import_click()  # `import click`の代わりにこれを使う
 
 
 @click.command()
-@click_common_opts("0.0.1")
+@click_common_opts(click, "0.0.1")
 def main(ctx, debug):
-    print("Hello, world!")
-
     if debug:
         print(f"[DEBUG] command.name = '{ctx.command.name}'")
+
+    print("Hello, world!")
 
 
 if __name__ == "__main__":
