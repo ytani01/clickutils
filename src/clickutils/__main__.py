@@ -8,7 +8,7 @@ click = import_click()
 
 
 @click.group(invoke_without_command=True)
-@click_common_opts(__version__)
+@click_common_opts(click, __version__)
 def cli(ctx, debug):
     """CLI top."""
 
@@ -27,7 +27,7 @@ def cli(ctx, debug):
 
 
 @cli.command()
-@click_common_opts(__version__)
+@click_common_opts(click, __version__)
 def sub1(ctx, debug):
     """Subcommand #1."""
     __log = get_logger(__name__, debug)
@@ -37,7 +37,7 @@ def sub1(ctx, debug):
 
 
 @cli.group(invoke_without_command=True)
-@click_common_opts(__version__)
+@click_common_opts(click, __version__)
 def sub2(ctx, debug):
     """Subcommand #2.(command group)"""
 
@@ -55,7 +55,7 @@ def sub2(ctx, debug):
 
 
 @sub2.command()
-@click_common_opts(__version__)
+@click_common_opts(click, __version__)
 def sub2sub(ctx, debug):
     """Subcommand of `sub2`."""
     __log = get_logger(__name__, debug)
