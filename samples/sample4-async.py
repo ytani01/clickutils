@@ -2,10 +2,9 @@
 # 非同期のサンプル
 #
 import asyncio
-from clickutils import click_common_opts, import_click
+import asyncclick as click
 
-
-click = import_click(async_flag=True)
+from clickutils import click_common_opts
 
 
 async def func1():

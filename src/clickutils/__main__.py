@@ -1,10 +1,8 @@
 #
 # (c) 2025 Yoichi Tanibayashi
 #
-from . import __version__, import_click, click_common_opts, get_logger
-
-
-click = import_click()
+import click
+from . import __version__, click_common_opts, get_logger
 
 
 @click.group(invoke_without_command=True)

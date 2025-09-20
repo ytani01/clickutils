@@ -9,10 +9,8 @@ Options:
   -d, --debug    debug flag
   -h, --help     Show this message and exit.
 """
-from clickutils import click_common_opts, import_click
-
-
-click = import_click()  # `import click`の代わりにこれを使う
+import click
+from clickutils import click_common_opts
 
 
 @click.command()

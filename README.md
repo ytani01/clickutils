@@ -13,7 +13,13 @@
 - **共通オプションの簡素化**
 
   バージョン、デバッグ、ヘルプといった共通の CLI オプションを、
-  `click_common_opts` デコレータ一つで設定できます。
+  `@click_common_opts(...)` デコレータ一つで設定できます。
+
+``` text
+    -V, --version  Show the version and exit.
+    -d, --debug    debug flag
+    -h, --help     Show this message and exit.
+```
 
 - **柔軟な設定**
 
@@ -39,39 +45,45 @@
 cd work   # `myproject`の親ディレクトリに移動
 
 git clone https://github.com/ytani01/clickutils.git
-# work/clickutils ディレクトリが作成されるので、
+
+# 組み込みたいプロジェクト(`myproject`)の隣に、
+# work/clickutils/ ディレクトリが作成され、
 # 以下のようなディレクトリ構成になります。
 # 
 # work/
 # ├── clickutils/
 # └── myproject/
 
-cd myproject  # `uv`で作られた既存のプロジェクト
+cd myproject  # 組み込みたいプロジェクトのディレクトリに移動
 
-uv add ../clickutils  # 相対パスで本パッケージを`add`する。
+uv add ../clickutils  # 相対パスで本パッケージを`uv add`する。
 ```
 
 
 ## == 使用方法
 
-### === `click_common_opts` デコレータ
+### === `@click_common_opts` デコレータ
 
-`click_common_opts` は、`click` コマンドやグループに共通オプションを追加するためのデコレータです。基本的な使用方法は以下の通りです。
+`click_common_opts` は、
+`click` コマンドやグループに共通オプションを追加するためのデコレータです。
+基本的な使用方法は以下の通りです。
+
+その他のサンプルは、[samples](samples/) ディレクトリを参照してください。
 
 ※ **注意**
-※ `click` は、個別に`import click`しないでください
-※
-※ 以下のように、本パッケージからインポートするようにしてください
-※
-※   from clickutils, import click, click_common_opts
-※   click = import_click()
+※ 同期/非同期に合わせて以下のインポートを適切に選んでください。
+※   import click
+※     or
+※   import asyncclick as click
 
 ```python
-from clickutils import click_common_opts, import_click
+import click
 
-click = import_click()
+from clickutils import click_common_opts
+
 
 VERSION = "1.0.0"
+
 
 # CLI のトップレベルコマンドを定義
 @click.group(invoke_without_command=True)
@@ -89,26 +101,29 @@ def cli(ctx, debug):
     else:
         print(ctx.get_help())
 
+
 # サブコマンドを定義
 @cli.command()
+@click.argument("arg1", type=str, nargs=1)
+@click.options("--opt1", type=str, default="")
 @click_common_opts(click, VERSION)
-def sub1(ctx, debug):
+def sub1(ctx, arg1, opt1, debug):
     """Subcommand #1."""
     if debug:
         print(f"command name = '{ctx.command.name}'")
 
-    print(f"  Hello from {ctx.command.name}")
+    print(f"Hello, {arg1} {opt1}")
 
 if __name__ == '__main__':
     cli()
 ```
 
+
 #### ==== パラメータ
 
-- `click` 引数名固定
+- `click` (必須)
 
-  `import_click()` で取得した `click`
-  `import_click(async_flag=Tree)`で取得すると、内部的に`asyncclick`になる。
+   インポートした`click`パッケージを明示的に指定する必要があります。
 
 - `ver_str` (str, 省略可)
 
@@ -156,6 +171,6 @@ clickutils sub2 sub2sub
 ```
 
 
-## ライセンス
+## == ライセンス
 
 このプロジェクトは [MIT License](LICENCE) の下で公開されています。
