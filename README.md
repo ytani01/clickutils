@@ -1,3 +1,9 @@
+# [DEPRECATED]
+
+[pyclickutils](https://github.com/ytani01/pyclickutils) に移行しました。
+こちらは、まもなく削除します。
+
+
 # clickutils
 
 `clickutils` は、Python の `click` ライブラリを使用したコマンドラインインターフェース (CLI) アプリケーション開発を支援するユーティリティ集です。
